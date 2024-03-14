@@ -17,21 +17,21 @@ class RegisterSerializer(serializers.HyperlinkedModelSerializer):
             }
         }
 
-    email = serializers.EmailField(
-        required=True,
-        validators=[UniqueValidator(queryset=User.objects.all())]
-    )
-
-    username = serializers.CharField(
-        required=True,
-        max_length=50
-    )
-
-    password = serializers.CharField(
-        write_only=True,
-        required=True,
-        validators=[validate_password]
-    )
+    # email = serializers.EmailField(
+    #     required=True,
+    #     validators=[UniqueValidator(queryset=User.objects.all())]
+    # )
+    #
+    # username = serializers.CharField(
+    #     required=True,
+    #     max_length=50
+    # )
+    #
+    # password = serializers.CharField(
+    #     write_only=True,
+    #     required=True,
+    #     validators=[validate_password]
+    # )
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
