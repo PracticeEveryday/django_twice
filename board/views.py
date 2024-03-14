@@ -1,14 +1,9 @@
-from django.contrib.auth.models import Group, User
-from rest_framework import permissions, viewsets
-from .serializers import UserSerializer, GroupSerializer
+from rest_framework import viewsets
+
+from .serializers import BoardSerializer
+from .models import Board
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated, ]
-
-
+class BoardViewSet(viewsets.ModelViewSet):
+    serializer_class = BoardSerializer
+    queryset = Board.objects.all()
