@@ -11,9 +11,8 @@ class RegisterSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ('username', 'email', 'password')
         extra_kwargs = {
-            'password': {  # 필드 모델 구성
+            'password': {
                 'write_only': True,
-                # 'style': {'input_type': 'password'}
             }
         }
 
@@ -33,11 +32,7 @@ class RegisterSerializer(serializers.HyperlinkedModelSerializer):
     #     validators=[validate_password]
     # )
 
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        representation.pop('password', None)
 
-        return representation
     # def create(self, validated_data):
     #     user = User.objects.create_user(
     #         username=validated_data['username'],
