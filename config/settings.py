@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     # App
-    # 'board',
+    'board',
     # 'user',
     'custom_user'
 ]
