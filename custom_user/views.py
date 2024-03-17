@@ -20,8 +20,7 @@ class AuthAPIView(APIView):
         elif self.request.method == 'GET':
             return [IsAuthenticated()]
 
-    @staticmethod
-    def get(request):
+    def get(self, request):
         try:
             bearer = request.headers['Authorization']
             access_token = bearer.split(" ")[1]
@@ -52,7 +51,7 @@ class AuthAPIView(APIView):
         except jwt.exceptions.InvalidTokenError:
             return Response('Invalid Token', status=status.HTTP_400_BAD_REQUEST)
 
-    @staticmethod
+
     def post(self, request):
         user = authenticate(
             email=request.data.get("email"), password=request.data.get("password")
@@ -85,7 +84,7 @@ class AuthAPIView(APIView):
 class RegisterAPIView(APIView):
     permission_classes = [AllowAny]
 
-    @staticmethod
+
     def post(self, request):
         serializer = UserSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():

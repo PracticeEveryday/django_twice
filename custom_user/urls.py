@@ -6,9 +6,9 @@ from .views import *
 router = routers.DefaultRouter()
 
 urlpatterns = [
-    path("auth/", AuthAPIView.as_view()),
+    path("auth/register/", RegisterAPIView.as_view()),
     path("auth/refresh/", TokenRefreshView.as_view()), # jwt 토큰 재발급
-    path("register/", RegisterAPIView.as_view()),
+    path("auth/", AuthAPIView.as_view()),
     path("", include(router.urls))
 ]
 
