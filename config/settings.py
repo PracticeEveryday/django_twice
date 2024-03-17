@@ -58,8 +58,6 @@ REST_FRAMEWORK = {
 
 # user 앱에서 내가 설정한 User를 사용하겠다고 설정.
 AUTH_USER_MODEL = 'custom_user.CustomUser'
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = ('email')
 
 
 TEMPLATES = [
