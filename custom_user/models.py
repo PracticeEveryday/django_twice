@@ -1,4 +1,3 @@
-from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
@@ -29,24 +28,6 @@ class CustomUserManager(BaseUserManager):
 
         superuser.is_staff = True
         superuser.is_superuser = True
-        superuser.is_active = True
-
-        superuser.save(using=self._db)
-        return superuser
-
-    def create_manager(self, email=None, password=None, **extra_fields):
-        """
-        주어진 이메일, 비밀번호 등 개인정보로 User 인스턴스 생성
-        단, 최상위 사용자이므로 권한을 부여
-        """
-        superuser = self.create_user(
-            email=email,
-            password=password,
-        )
-
-        superuser.is_staff = True
-        superuser.is_superuser = False
-        superuser.is_active = True
 
         superuser.save(using=self._db)
         return superuser
@@ -60,37 +41,31 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         unique=True,
         null=False,
         blank=False,
-        help_text='Email Field'
-    )
-    is_superuser = models.BooleanField(
-        null=False,
-        blank=False,
-        default=False,
-        help_text='superuser 여부입니다.'
+        help_text='Email(username으로 사용)'
     )
     is_active = models.BooleanField(
         null=False,
         blank=False,
         default=True,
-        help_text='활성화 상태 여부입니다.'
+        help_text='활성화 상태 여부'
     )
     is_staff = models.BooleanField(
         null=False,
         blank=False,
         default=False,
-        help_text='Staff 여부입니다.'
+        help_text='Staff 여부'
     )
     created_at = models.DateTimeField(
         null=False,
         blank=False,
         auto_now_add=True,
-        help_text='생성된 날짜입니다.'
+        help_text='생성 시간'
     )
     updated_at = models.DateTimeField(
         null=False,
         blank=False,
         auto_now=True,
-        help_text='업데이트 된 날짜입니다.'
+        help_text='업데이트 시간'
     )
 
     # 헬퍼 클래스 사용
