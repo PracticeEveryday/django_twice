@@ -24,6 +24,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
 
+    # Filter
+    'django_filters',
+
     # App
     'board',
     # 'user',

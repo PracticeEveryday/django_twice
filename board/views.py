@@ -1,5 +1,8 @@
 from rest_framework import viewsets
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
+
 
 from .serializers import BoardSerializer
 from .models import Board
@@ -11,6 +14,9 @@ class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     authentication_classes = (JWTAuthentication,)
     permission_classes = (UpdateOwnProfile, )
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['title', 'content']
+    search_fields = ['title', 'content']
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
