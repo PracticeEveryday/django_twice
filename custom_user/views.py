@@ -85,7 +85,6 @@ class AuthAPIView(APIView):
 class RegisterAPIView(APIView):
     permission_classes = [AllowAny]
 
-
     def post(self, request):
         serializer = UserSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():

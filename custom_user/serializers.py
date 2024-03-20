@@ -15,3 +15,10 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
         return user
+
+    # 반환 값 Serialization
+    def to_representation(self, instance):
+        return {
+            'id': instance.id,
+            'email': instance.email,
+        }
