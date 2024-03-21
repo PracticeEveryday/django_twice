@@ -8,7 +8,6 @@ class BoardSerializer(serializers.ModelSerializer):
         model = Board
         fields = ['title', 'content']
 
-
     def to_representation(self, instance):
         return {
             "id": instance.id,
