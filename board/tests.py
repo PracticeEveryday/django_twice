@@ -5,7 +5,6 @@ from rest_framework_simplejwt.tokens import AccessToken
 
 from custom_user.models import CustomUser
 from .models import Board
-from .permissions import UpdateOwnProfile
 
 
 class BoardApiTest(TestCase):
