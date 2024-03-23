@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from board.models import Board
+from board.permissions import IsOwner
 from board.serializers import BoardSerializer
 
 
@@ -16,7 +17,7 @@ class BoardApiView(APIView):
         if self.request.method == 'GET':
             return [AllowAny()]
         elif self.request.method == 'POST':
-            return [AllowAny()]
+            return [IsAuthenticated()]
 
     def get(self, request):
         # query, serializer를 구현해 주어야 한다.
@@ -35,12 +36,21 @@ class BoardApiView(APIView):
 
 
 class BoardDetailApiView(APIView):
-    authentication_classes = (JWTAuthentication,)
+    authentication_classes = (JWTAuthentication, IsOwner)
 
-    def get(self, pk=None):
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        elif self.request.method == 'POST':
+            return [IsAuthenticated()]
+
+    def get(self, request, pk=None):
         if pk is not None:
             try:
                 board = Board.objects.get(pk=pk)
+                serializer = BoardSerializer(instance=board)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+
             except Board.DoesNotExist:
                 return Response({"message": "게시글을 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
 
